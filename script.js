@@ -56,7 +56,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             catch (error) {
                 alert(error);
-                inpVal.focus();
+                if (window.innerWidth > 470) {
+                    inpVal.focus();
+                }
                 document.getElementById('equal').classList.remove("active");
             }
         }
@@ -87,25 +89,35 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 ans = eval(inpVal.value);
                 inpVal.value = ans;
-                inpVal.focus();
+                if (window.innerWidth > 470) {
+                    inpVal.focus();
+                }
 
             } catch (error) {
                 alert(error);
-                inpVal.focus();
+                if (window.innerWidth > 470) {
+                    inpVal.focus();
+                }
             }
 
         }
         if (target.textContent === 'C') {
             inpVal.value = "";
-            inpVal.focus();
+            if (window.innerWidth > 470) {
+                inpVal.focus();
+            }
         }
         if (/^[0-9+-\-*/.]$/.test(target.textContent)) {
             inpVal.value += target.textContent;
-            inpVal.focus();
+            if (window.innerWidth > 470) {
+                inpVal.focus();
+            }
         }
         if (target.textContent === 'x') {
             inpVal.value = inpVal.value.slice(0, -1);
-            inpVal.focus();
+            if (window.innerWidth > 470) {
+                inpVal.focus();
+            }
         }
     })
 
