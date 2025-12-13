@@ -44,6 +44,9 @@ body {
     background: rgba(64, 83, 36, 0.6);
     border: none;
     color: white;
+    text-align: center;
+    align-content: center;
+    border-radius: 15px;
 }
 
 #numInp {
@@ -75,7 +78,8 @@ body {
     -moz-appearance: textfield;
 }
 
-.display,
+
+
 .cells {
     text-align: center;
     align-content: center;
@@ -88,7 +92,7 @@ body {
     color: white;
 }
 
-.active{
+.active {
     background-color: rgb(58, 55, 55);
     transform: scale(1.06);
     border: none;
@@ -187,4 +191,21 @@ body {
 
 #equal {
     grid-area: equal;
+}
+
+
+@media screen and (max-width:470px) {
+
+    #numInp {
+        pointer-events: none;
+        user-select: none;
+        width:95%;
+    }
+    .display{
+        border: none;
+    }
+    .container {
+        grid-template-columns: repeat(4, minmax(60px, 1fr));
+        grid-template-rows: repeat(6, minmax(50px, auto));
+    }
 }

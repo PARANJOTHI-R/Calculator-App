@@ -29,6 +29,21 @@ document.addEventListener('DOMContentLoaded', () => {
         "Delete": "delAll"
     }
 
+
+    // function handleResize() {
+    //     if (window.innerWidth <= 480) {
+    //         inpVal.blur();
+    //         inpVal.readOnly = true;        // prevent typing
+    //         inpVal.disabled = true;
+    //     } else {
+    //         inpVal.readOnly = false;       // restore normal behavior
+    //         inpVal.disabled = false;
+    //     }
+    // }
+    // window.addEventListener('resize', handleResize);
+    // window.addEventListener('load', handleResize);
+
+
     function handleKeyDown(e) {
         let id = keyObj[e.key];
         if (id) {
@@ -68,7 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     document.addEventListener('click', (e) => {
         const target = e.target;
-        console.log(target.textContent);
         if (target.textContent === '=') {
             try {
                 ans = eval(inpVal.value);
