@@ -1,5 +1,26 @@
 document.addEventListener('DOMContentLoaded', () => {
     let inpVal = document.getElementById('numInp');
+    function activate(e) {
+        e.currentTarget.classList.add("active");
+    }
+
+    function deactivate(e) {
+        e.currentTarget.classList.remove("active");
+    }
+
+    // Attach to all calculator buttons
+    const buttons = document.querySelectorAll('.cells button');
+    buttons.forEach(button => {
+        // press down
+        button.addEventListener('mousedown', activate);
+        button.addEventListener('touchstart', activate);
+
+        // release or leave
+        button.addEventListener('mouseup', deactivate);
+        button.addEventListener('mouseleave', deactivate);
+        button.addEventListener('touchend', deactivate);
+        button.addEventListener('touchcancel', deactivate);
+    });
 
     inpVal.addEventListener("input", () => {
         inpVal.value = inpVal.value.replace(/[^0-9+\-*/.$]/, "");
@@ -28,24 +49,24 @@ document.addEventListener('DOMContentLoaded', () => {
         "C": "delAll",
         "Delete": "delAll"
     }
-    if (window.innerWidth <= 480) {
-        function activate(e) {
-            e.currentTarget.classList.add("active");
-        }
+    // if (window.innerWidth <= 480) {
+    //     function activate(e) {
+    //         e.currentTarget.classList.add("active");
+    //     }
 
-        function deactivate(e) {
-            e.currentTarget.classList.remove("active");
-        }
-        const btns = document.querySelectorAll('.cells button');
-        btns.forEach((button) => {
-            button.addEventListener('touchstart', activate);
-            button.addEventListener('touchend', deactivate);
-            button.addEventListener('touchcancel', deactivate);
-            button.addEventListener('mousedown', activate);
-            button.addEventListener('mouseup', deactivate);
-            button.addEventListener('mouseleave', deactivate);
-        })
-    } else {
+    //     function deactivate(e) {
+    //         e.currentTarget.classList.remove("active");
+    //     }
+    //     const btns = document.querySelectorAll('.cells button');
+    //     btns.forEach((button) => {
+    //         button.addEventListener('touchstart', activate);
+    //         button.addEventListener('touchend', deactivate);
+    //         button.addEventListener('touchcancel', deactivate);
+    //         button.addEventListener('mousedown', activate);
+    //         button.addEventListener('mouseup', deactivate);
+    //         button.addEventListener('mouseleave', deactivate);
+    //     })
+    // } else {
 
         function handleKeyDown(e) {
             let id = keyObj[e.key];
@@ -86,7 +107,6 @@ document.addEventListener('DOMContentLoaded', () => {
             document.removeEventListener("keydown", handleKeyDown);
             document.removeEventListener("keyup", handleKeyUp);
         });
-    }
 
     document.addEventListener('click', (e) => {
         const target = e.target;
