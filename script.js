@@ -28,24 +28,22 @@ document.addEventListener('DOMContentLoaded', () => {
         "C": "delAll",
         "Delete": "delAll"
     }
-    if (window.innerWidth < 480) {
-        function touchStart(e) {
-            const button = e.currentTarget;
-            button.classList.add("active");
+    if (window.innerWidth <= 480) {
+        function activate(e) {
+            e.currentTarget.classList.add("active");
         }
 
-        function touchEnd(e) {
-            const button = e.currentTarget;
-            button.classList.remove("active");
+        function deactivate(e) {
+            e.currentTarget.classList.remove("active");
         }
-        const btns = document.querySelectorAll('.cells');
-        btns.forEach((btn) => {
-            const buttons = btn.getElementsByTagName('button');
-
-            Array.from(buttons).forEach(button => {
-                button.addEventListener('touchstart', touchStart);
-                button.addEventListener('touchend', touchEnd);
-            });
+        const btns = document.querySelectorAll('.cells button');
+        btns.forEach((button) => {
+            button.addEventListener('touchstart', activate);
+            button.addEventListener('touchend', deactivate);
+            button.addEventListener('touchcancel', deactivate);
+            button.addEventListener('mousedown', activate);
+            button.addEventListener('mouseup', deactivate);
+            button.addEventListener('mouseleave', deactivate);
         })
     } else {
 
