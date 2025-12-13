@@ -30,19 +30,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (window.innerWidth < 480) {
         function touchStart(e) {
-            let id = keyObj[e.key];
-            if (id) {
-                document.getElementById(id).classList.add("active");
-            }
+            const button = e.currentTarget;
+            button.classList.add("active");
         }
+
         function touchEnd(e) {
-            let id = keyObj[e.key];
-            if (id) {
-                document.getElementById(id).classList.remove("active");
-            }
+            const button = e.currentTarget;
+            button.classList.remove("active");
         }
-        document.addEventListener('touchstart', touchStart);
-        document.addEventListener("touchend", touchEnd);
+        const btns = document.querySelectorAll('.cells');
+        btns.forEach((btn) => {
+            const buttons = btn.getElementsByTagName('button');
+
+            Array.from(buttons).forEach(button => {
+                button.addEventListener('touchstart', touchStart);
+                button.addEventListener('touchend', touchEnd);
+            });
+        })
     } else {
 
         function handleKeyDown(e) {
