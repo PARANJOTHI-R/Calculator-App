@@ -83,6 +83,22 @@ document.addEventListener('DOMContentLoaded', () => {
         document.removeEventListener("keydown", handleKeyDown);
         document.removeEventListener("keyup", handleKeyUp);
     });
+
+    function touchStart(e){
+        let id = keyObj[e.key];
+        if (id) {
+            document.getElementById(id).classList.add("active");
+        }
+    }
+    function touchEnd(e){
+        let id = keyObj[e.key];
+        if (id) {
+            document.getElementById(id).classList.remove("active");
+        }
+    }
+    document.addEventListener('touchstart',touchStart);
+    document.addEventListener("touchend",touchEnd);
+
     document.addEventListener('click', (e) => {
         const target = e.target;
         if (target.textContent === '=') {
