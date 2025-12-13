@@ -206,6 +206,6 @@ body {
     }
     .container {
         grid-template-columns: repeat(4, minmax(60px, 1fr));
-        grid-template-rows: repeat(6, minmax(50px, auto));
+        grid-template-rows: repeat(6, minmax(60px, auto));
     }
 }
