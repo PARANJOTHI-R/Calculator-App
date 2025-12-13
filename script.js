@@ -1,27 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
     let inpVal = document.getElementById('numInp');
-    function activate(e) {
-        e.currentTarget.classList.add("active");
-    }
-
-    function deactivate(e) {
-        e.currentTarget.classList.remove("active");
-    }
-
-    // Attach to all calculator buttons
-    const buttons = document.querySelectorAll('.cells button');
-    buttons.forEach(button => {
-        // press down
-        button.addEventListener('mousedown', activate);
-        button.addEventListener('touchstart', activate);
-
-        // release or leave
-        button.addEventListener('mouseup', deactivate);
-        button.addEventListener('mouseleave', deactivate);
-        button.addEventListener('touchend', deactivate);
-        button.addEventListener('touchcancel', deactivate);
-    });
-
     inpVal.addEventListener("input", () => {
         inpVal.value = inpVal.value.replace(/[^0-9+\-*/.$]/, "");
     });
@@ -49,64 +27,46 @@ document.addEventListener('DOMContentLoaded', () => {
         "C": "delAll",
         "Delete": "delAll"
     }
-    // if (window.innerWidth <= 480) {
-    //     function activate(e) {
-    //         e.currentTarget.classList.add("active");
-    //     }
 
-    //     function deactivate(e) {
-    //         e.currentTarget.classList.remove("active");
-    //     }
-    //     const btns = document.querySelectorAll('.cells button');
-    //     btns.forEach((button) => {
-    //         button.addEventListener('touchstart', activate);
-    //         button.addEventListener('touchend', deactivate);
-    //         button.addEventListener('touchcancel', deactivate);
-    //         button.addEventListener('mousedown', activate);
-    //         button.addEventListener('mouseup', deactivate);
-    //         button.addEventListener('mouseleave', deactivate);
-    //     })
-    // } else {
-
-        function handleKeyDown(e) {
-            let id = keyObj[e.key];
-            if (id) {
-                document.getElementById(id).classList.add("active");
+    function handleKeyDown(e) {
+        let id = keyObj[e.key];
+        if (id) {
+            document.getElementById(id).classList.add("active");
+        }
+        if (e.key === 'Enter') {
+            try {
+                ans = eval(inpVal.value);
+                inpVal.value = ans;
             }
-            if (e.key === 'Enter') {
-                try {
-                    ans = eval(inpVal.value);
-                    inpVal.value = ans;
+            catch (error) {
+                alert(error);
+                if (window.innerWidth > 470) {
+                    inpVal.focus();
                 }
-                catch (error) {
-                    alert(error);
-                    if (window.innerWidth > 470) {
-                        inpVal.focus();
-                    }
-                    document.getElementById('equal').classList.remove("active");
-                }
-            }
-            if (e.key === "Delete") {
-                inpVal.value = "";
+                document.getElementById('equal').classList.remove("active");
             }
         }
-
-        function handleKeyUp(e) {
-            let id = keyObj[e.key];
-            if (id) {
-                document.getElementById(id).classList.remove("active");
-            }
+        if (e.key === "Delete") {
+            inpVal.value = "";
         }
+    }
 
-        inpVal.addEventListener("focus", () => {
-            document.addEventListener("keydown", handleKeyDown);
-            document.addEventListener("keyup", handleKeyUp);
-        });
+    function handleKeyUp(e) {
+        let id = keyObj[e.key];
+        if (id) {
+            document.getElementById(id).classList.remove("active");
+        }
+    }
 
-        inpVal.addEventListener("blur", () => {
-            document.removeEventListener("keydown", handleKeyDown);
-            document.removeEventListener("keyup", handleKeyUp);
-        });
+    inpVal.addEventListener("focus", () => {
+        document.addEventListener("keydown", handleKeyDown);
+        document.addEventListener("keyup", handleKeyUp);
+    });
+
+    inpVal.addEventListener("blur", () => {
+        document.removeEventListener("keydown", handleKeyDown);
+        document.removeEventListener("keyup", handleKeyUp);
+    });
 
     document.addEventListener('click', (e) => {
         const target = e.target;
