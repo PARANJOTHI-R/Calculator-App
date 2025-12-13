@@ -28,76 +28,63 @@ document.addEventListener('DOMContentLoaded', () => {
         "C": "delAll",
         "Delete": "delAll"
     }
-
-
-    // function handleResize() {
-    //     if (window.innerWidth <= 480) {
-    //         inpVal.blur();
-    //         inpVal.readOnly = true;        // prevent typing
-    //         inpVal.disabled = true;
-    //     } else {
-    //         inpVal.readOnly = false;       // restore normal behavior
-    //         inpVal.disabled = false;
-    //     }
-    // }
-    // window.addEventListener('resize', handleResize);
-    // window.addEventListener('load', handleResize);
-
-
-    function handleKeyDown(e) {
-        let id = keyObj[e.key];
-        if (id) {
-            document.getElementById(id).classList.add("active");
-        }
-        if (e.key === 'Enter') {
-            try {
-                ans = eval(inpVal.value);
-                inpVal.value = ans;
+    if (window.innerWidth < 480) {
+        function touchStart(e) {
+            let id = keyObj[e.key];
+            if (id) {
+                document.getElementById(id).classList.add("active");
             }
-            catch (error) {
-                alert(error);
-                if (window.innerWidth > 470) {
-                    inpVal.focus();
+        }
+        function touchEnd(e) {
+            let id = keyObj[e.key];
+            if (id) {
+                document.getElementById(id).classList.remove("active");
+            }
+        }
+        document.addEventListener('touchstart', touchStart);
+        document.addEventListener("touchend", touchEnd);
+    } else {
+
+        function handleKeyDown(e) {
+            let id = keyObj[e.key];
+            if (id) {
+                document.getElementById(id).classList.add("active");
+            }
+            if (e.key === 'Enter') {
+                try {
+                    ans = eval(inpVal.value);
+                    inpVal.value = ans;
                 }
-                document.getElementById('equal').classList.remove("active");
+                catch (error) {
+                    alert(error);
+                    if (window.innerWidth > 470) {
+                        inpVal.focus();
+                    }
+                    document.getElementById('equal').classList.remove("active");
+                }
+            }
+            if (e.key === "Delete") {
+                inpVal.value = "";
             }
         }
-        if (e.key === "Delete") {
-            inpVal.value = "";
-        }
-    }
 
-    function handleKeyUp(e) {
-        let id = keyObj[e.key];
-        if (id) {
-            document.getElementById(id).classList.remove("active");
+        function handleKeyUp(e) {
+            let id = keyObj[e.key];
+            if (id) {
+                document.getElementById(id).classList.remove("active");
+            }
         }
-    }
 
-    inpVal.addEventListener("focus", () => {
-        document.addEventListener("keydown", handleKeyDown);
-        document.addEventListener("keyup", handleKeyUp);
-    });
+        inpVal.addEventListener("focus", () => {
+            document.addEventListener("keydown", handleKeyDown);
+            document.addEventListener("keyup", handleKeyUp);
+        });
 
-    inpVal.addEventListener("blur", () => {
-        document.removeEventListener("keydown", handleKeyDown);
-        document.removeEventListener("keyup", handleKeyUp);
-    });
-
-    function touchStart(e){
-        let id = keyObj[e.key];
-        if (id) {
-            document.getElementById(id).classList.add("active");
-        }
+        inpVal.addEventListener("blur", () => {
+            document.removeEventListener("keydown", handleKeyDown);
+            document.removeEventListener("keyup", handleKeyUp);
+        });
     }
-    function touchEnd(e){
-        let id = keyObj[e.key];
-        if (id) {
-            document.getElementById(id).classList.remove("active");
-        }
-    }
-    document.addEventListener('touchstart',touchStart);
-    document.addEventListener("touchend",touchEnd);
 
     document.addEventListener('click', (e) => {
         const target = e.target;
